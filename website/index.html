@@ -8,6 +8,8 @@
         <!-- CSS Resources -->
         <!--    Bootstrap with Readable Bootswatch -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css">
+        <!--    Font Awesome -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
         <!--    Local CSS Resources -->
 
     </head>
@@ -22,13 +24,58 @@
             </div>
             <div class="streamer">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-lg-8 col-md-6">
                         <!-- Where content from all users will be displayed -->
                         <div id="stream"></div>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-lg-4 col-md-6">
                         <!-- Controls for individual users to create content to be shared -->
-                        <div id="posting-controls"></div>
+                        <div id="posting-controls">
+                            <ul class="nav nav-tabs">
+                                <li><a href="#words" data-toggle="tab"><i class="fa fa-pencil"></i></a></li>
+                                <li><a href="#pic" data-toggle="tab"><i class="fa fa-camera"></i></a></li>
+                                <li class="active"><a href="#vid" data-toggle="tab"><i class="fa fa-dot-circle-o"></i></a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="words" class="tab-pane fade well">
+                                    <form id="wordsForm" class="form-horizontal">
+                                        <fieldset>
+                                            <legend>Words</legend>
+                                            <div class="form-group">
+                                                <label for="wordsInput" class="col-lg-2 control-label"></label>
+                                                <div class="col-lg-10">
+                                                    <textarea class="form-control" rows="2" id="wordsInput"></textarea>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                <div id="pic" class="tab-pane fade well">
+                                    <form id="picForm" class="form-horizontal">
+                                        <fieldset>
+                                            <legend>Pic</legend>
+                                            <div class="form-group">
+                                                <div class="col-lg-12">
+                                                    <video id="picInput" autoplay></video>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                <div id="vid" class="tab-pane fade active in well">
+                                    <form id="vidForm" class="form-horizontal">
+                                        <fieldset>
+                                            <legend>Vid</legend>
+                                            <div class="form-group">
+                                                <div class="col-lg-12">
+                                                    <video id="vidInput" autoplay></video>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -39,7 +86,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!--    Bootstrap (3.3.7) -->
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <!--    Local CSS Resources -->
-
+        <!--    Local JS Resources -->
+        <script src="js/adapter_no_global.js"></script>
+        <script src="js/webcam.js"></script>
     </body>
 </html>
