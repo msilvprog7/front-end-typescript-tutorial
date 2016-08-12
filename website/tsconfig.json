@@ -2,10 +2,10 @@
     "compilerOptions": {
         "target": "ES6",
         "removeComments": true,
-        "outFile": "webcam.js",
         "sourceMap": true
     },
     "files": [
-        "webcam.ts"
+        "server.ts",
+        "js/webcam.ts"
     ]
 }
