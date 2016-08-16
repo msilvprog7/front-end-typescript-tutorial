@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "removeComments": false,
+        "sourceMap": true
+    },
+    "files": [
+        "typings/index.d.ts",
+        "js/post.ts",
+        "js/webcam.ts",
+        "js/index.ts"
+    ],
+    "exclude": [
+    ]
+}

@@ -22,23 +22,45 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal -->
+            <div id="usernameModal" class="modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Change username</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <input id="usernameInput" type="text" placeholder="Username..." />
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="saveUsernameButton" type="button" class="btn btn-primary">Save</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
             <div class="streamer">
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <!-- Where content from all users will be displayed -->
-                        <div id="stream"></div>
+                        <div id="stream" class="stream"></div>
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <!-- Controls for individual users to create content to be shared -->
                         <div id="posting-controls" class="well">
                             <form id="wordsForm" class="form-horizontal">
                                 <fieldset>
-                                    <legend>Me <i class="fa fa-smile-o"></i></legend>
+                                    <legend><span class="username">Me</span> <i class="fa fa-smile-o"></i></legend>
                                     <div class="row">
                                         <center>
                                             <video id="webcam" autoplay class="post-item"></video>
                                             <textarea id="wordsInput"" class="post-item" rows="2"></textarea>
-                                            <button class="btn btn-sm btn-success post-item" type="button" >Share <i class="fa fa-pencil"></i></button>
+                                            <button id="shareButton" class="btn btn-sm btn-success post-item" type="button" disabled>Share <i class="fa fa-pencil"></i></button>
                                         </center>
                                     </div>
                                 </fieldset>
@@ -57,6 +79,8 @@
         <!--    WebRTC's Adapter (no global, 2.0.2) -->
         <script src="https://rawgit.com/webrtc/adapter/gh-pages/adapter-2.0.2-variants/adapter_no_global.js"></script>
         <!--    Local JS Resources -->
+        <script src="js/post.js"></script>
         <script src="js/webcam.js"></script>
+        <script src="js/index.js"></script>
     </body>
 </html>

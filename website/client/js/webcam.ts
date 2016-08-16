@@ -1,24 +1,31 @@
-/// <reference path="typings/index.d.ts" />
 class Webcam {
-    static IMAGE_CONSTRAINTS:  MediaStreamConstraints = {video: true, audio: false};
+    static VIDEO_WIDTH = 240;
+    static VIDEO_HEIGHT = 160;
     static VIDEO_CONSTRAINTS:  MediaStreamConstraints = {
         video: {
-            width: 240,
-            height: 160
+            width: Webcam.VIDEO_WIDTH,
+            height: Webcam.VIDEO_HEIGHT
         }
     };
 
     private video: any = null;
+    private permission: boolean = false;
 
     constructor(private tagId: string) {
         this.video = document.querySelector(tagId);
     }
     
-    capture() {
+    capture(): string {
+        // Return null if no video permission
+        if (!this.permission) {
+            return null;
+        }
+
+        // Create a canvas, draw, and return ImageData
         let canvas = document.createElement("canvas");
         let ctx = canvas.getContext("2d");
         ctx.drawImage(this.video, 0, 0);
-        return ctx.getImageData(0, 0, 240, 160);
+        return canvas.toDataURL();
     }
 
     requestVideo() {
@@ -28,13 +35,11 @@ class Webcam {
     }
 
     private handleVideo(stream: MediaStream) {
+        this.permission = true;
         this.video.srcObject = stream;
     }
 
     private handleVideoError(error: MediaStreamError) {
-        console.log(error);
+        this.permission = false;
     }
 }
-
-var webcam: Webcam = new Webcam("#webcam");
-webcam.requestVideo();

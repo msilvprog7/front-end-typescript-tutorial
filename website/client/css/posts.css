@@ -1,0 +1,68 @@
+body {
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.post-item {
+    width: 240px;
+}
+
+.stream {
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.post {
+    display: block;
+    padding: 2%;
+}
+
+.post-image {
+    display: block;
+}
+
+.post-content-block {
+    display: block;
+}
+
+.post-content {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    background-color: #9cdeb2;
+    color: #170c25;
+    font-size: 18px;
+}
+
+.my-post > div > .post-content-block > .post-content {
+    background-color: #3a7cad;
+    color: #fcfcfc;
+}
+
+.subsequent-post-content { 
+    margin-top: 0px;
+}
+
+.post-text {
+    display: block;
+}
+
+.post-footer { 
+    display: block;
+    font-size: 12px;
+}
+
+.post-author {
+    display: inline-block;
+    color: #3651a2;
+    font-weight: bold;
+}
+
+.my-post > div > .post-content-block > .post-content > .post-footer > .post-author {
+    color: #cca367;
+}
+
+.post-date {
+    display: inline-block;
+}

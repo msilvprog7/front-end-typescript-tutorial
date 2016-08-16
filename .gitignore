@@ -1,4 +1,4 @@
 website/**/*.js
-website/node_modules/*
+website/**/node_modules/*
+website/**/typings/*
 website/**/*.js.map
-website/typings/*
