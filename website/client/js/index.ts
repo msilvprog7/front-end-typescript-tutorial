@@ -1,22 +1,31 @@
 // When the document is ready
 $("document").ready(function () {
     // Initialize the webcam and request video
-    let webcam: Webcam = new Webcam("#webcam");
+    let webcam: Webcam = new Webcam("webcam");
     webcam.requestVideo();
 
     // Create author name
-    let names = ["Michael"],
-        author = names[Math.floor(Math.random() * names.length)],
-        usernameModal = $("#usernameModal") as any;
+    let names = ["Appletini", "Basket-Case", "Cardio", "Dreamer", "Elephant", "Frisky", "Gucci", "Hater", "Iteration",
+            "Junk", "Krispy", "Libertarian", "Modal", "Nano-Lover", "Orange-ish", "Palindrome", "Qux", "Rodeo", 
+            "Syntax-Error", "error TS", "Ugly", "Vicious", "Xanthan-Gum", "Yorkshire", "Zombie"
+        ],
+        author = `${names[Math.floor(Math.random() * names.length)]}-${Math.floor(Math.random() * 1337)}`,
+        usernameModal = $("#usernameModal") as any,
+        updateUsername = function () {
+            let potentialName = $("#usernameInput").val().trim();
+            author = (potentialName.length > 0) ? potentialName : author;
+            $(".username").text(author);
+            usernameModal.modal("hide");
+        };
     $(".username").text(author);
     usernameModal.modal("show");
-
-    $("#saveUsernameButton").click(function () {
-        let potentialName = $("#usernameInput").val().trim();
-        author = (potentialName.length > 0) ? potentialName : author;
-        $(".username").text(author);
-        usernameModal.modal("hide");
+    $("#usernameInput").focus();
+    $("#usernameInput").keyup(function (e) {
+        if (e.keyCode === 13) {
+            updateUsername();
+        }
     });
+    $("#saveUsernameButton").click(updateUsername);
 
     // Create event handler for posting content
     let post = function () {

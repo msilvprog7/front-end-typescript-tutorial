@@ -1,10 +1,13 @@
 class Webcam {
     static VIDEO_WIDTH = 240;
     static VIDEO_HEIGHT = 160;
+    static FACING_MODE = "user";
     static VIDEO_CONSTRAINTS:  MediaStreamConstraints = {
         video: {
             width: Webcam.VIDEO_WIDTH,
-            height: Webcam.VIDEO_HEIGHT
+            height: Webcam.VIDEO_HEIGHT,
+            aspectRatio: Webcam.VIDEO_WIDTH / Webcam.VIDEO_HEIGHT,
+            facingMode: Webcam.FACING_MODE
         }
     };
 
@@ -12,20 +15,27 @@ class Webcam {
     private permission: boolean = false;
 
     constructor(private tagId: string) {
-        this.video = document.querySelector(tagId);
+        this.video = document.getElementById(tagId);
     }
     
-    capture(): string {
+    capture(): Image {
         // Return null if no video permission
         if (!this.permission) {
-            return null;
+            return undefined;
         }
 
         // Create a canvas, draw, and return ImageData
         let canvas = document.createElement("canvas");
+        canvas.width = this.video.offsetWidth;
+        canvas.height = this.video.offsetHeight;
+
         let ctx = canvas.getContext("2d");
-        ctx.drawImage(this.video, 0, 0);
-        return canvas.toDataURL();
+        ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height);
+        return {
+            imageDataURI: canvas.toDataURL(),
+            width: canvas.width,
+            height: canvas.height
+        };
     }
 
     requestVideo() {

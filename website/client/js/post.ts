@@ -6,6 +6,12 @@ interface Post {
     author: string;
 }
 
+interface Image {
+    imageDataURI: string;
+    width: number;
+    height: number;
+}
+
 abstract class BasePost implements Post {
     id: Id;
     date: number;
@@ -110,13 +116,24 @@ class TextPost extends BasePost {
 }
 
 class ImagePost extends TextPost {
-    constructor(author: string, text: string, public imageDataURI: string) {
+    constructor(author: string, text: string, public image: Image) {
         super(author, text);
+    }
+
+    private loadImageToComponent(postId: string) {
+        let canvas = document.getElementById(`post-canvas-${postId}`) as HTMLCanvasElement,
+            ctx = canvas.getContext("2d"),
+            img = new Image;
+        
+        img.src = this.image.imageDataURI;
+        img.onload = function () {
+            ctx.drawImage(img, 0, 0);
+        };
     }
 
     json(): {} {
         let obj = {
-                imageDataURI: this.imageDataURI
+                image: this.image
             },
             parentObj = super.json();
 
@@ -129,41 +146,25 @@ class ImagePost extends TextPost {
 
     getComponent(isAuthor: boolean, innerComponents?: string): string {
         let imageComponent: string = `${(innerComponents) ? innerComponents : ""}
-            <canvas id='post-canvas-${this.id}' class='post-image' width='240' height='160'></canvas>`;
+            <canvas id='post-canvas-${this.id}' class='post-image' width='${this.image.width}' height='${this.image.height}'></canvas>`;
         return super.getComponent(isAuthor, imageComponent);
     }
 
     initComponent() {
-        let canvas = document.getElementById(`post-canvas-${this.id}`) as HTMLCanvasElement,
-            ctx = canvas.getContext("2d"),
-            img = new Image;
-        
-        img.src = this.imageDataURI;
-        img.onload = function () {
-            ctx.drawImage(img, 0, 0);
-        };
-
+        this.loadImageToComponent(this.id);
         super.initComponent();
     }
 
     extendComponent(chainId: string): void {
-        let canvas = document.getElementById(`post-canvas-${chainId}`) as HTMLCanvasElement,
-            ctx = canvas.getContext("2d"),
-            img = new Image;
-        
-        img.src = this.imageDataURI;
-        img.onload = function () {
-            ctx.drawImage(img, 0, 0);
-        }
-
+        this.loadImageToComponent(chainId);
         super.extendComponent(chainId);
     }
 }
 
 class PostFactory {
-    static generate(author: string, text: string, imageDataURI?: string): BasePost {
-        if (imageDataURI && imageDataURI.length > 0) {
-            return new ImagePost(author, text, imageDataURI);
+    static generate(author: string, text: string, image?: Image): BasePost {
+        if (image && image.imageDataURI && image.imageDataURI.length > 0 && image.width && image.height) {
+            return new ImagePost(author, text, image);
         } else {
             return new TextPost(author, text);
         }
@@ -175,13 +176,13 @@ class PostFactory {
     }
 
     static isImagePost(post: Object): post is ImagePost {
-        return ("imageDataURI" in post && "text" in post && 
+        return ("image" in post && "text" in post && 
             "author" in post && "date" in post && "id" in post);
     }
 
     static transformObjectToPost(post: Object): BasePost {
         if (PostFactory.isImagePost(post)) {
-            let imagePost = new ImagePost(post.author, post.text, post.imageDataURI);
+            let imagePost = new ImagePost(post.author, post.text, post.image);
             imagePost.setId(post.id);
             imagePost.setDate(post.date);
             return imagePost;
