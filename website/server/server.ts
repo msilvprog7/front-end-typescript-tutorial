@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({extended: true, limit: "5mb"}));
  * Use this end point to render the web page
  */
 app.post('/', function (req, res) {
-	console.log(posts);
+	// console.log(posts);
 	res.render("index.html");
 });
 
@@ -39,7 +39,7 @@ app.post("/post", function (req, res) {
 	if (req.body && req.body.post) {
 		posts.insertAtTail(req.body.post as Post);
 	}
-	console.log(posts);
+	// console.log(posts);
 	res.status(200).send();
 });
 

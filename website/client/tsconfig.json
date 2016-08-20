@@ -6,7 +6,9 @@
     },
     "files": [
         "typings/index.d.ts",
+        "js/ui.ts",
         "js/post.ts",
+        "js/postClient.ts",
         "js/webcam.ts",
         "js/index.ts"
     ],
